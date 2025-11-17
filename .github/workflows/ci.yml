@@ -25,12 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Resolve packages
-        run: xcodebuild -resolvePackageDependencies -project xr-tiger-putt.xcodeproj -scheme "xr-tiger-putt"
-      - name: Run tests (visionOS simulator)
-        run: |
-          xcodebuild test \
-            -project xr-tiger-putt.xcodeproj \
-            -scheme "xr-tiger-putt" \
-            -destination 'platform=visionOS Simulator,name=Apple Vision Pro' \
-            -skipPackagePluginValidation \
-            -skipMacroValidation
+        run: swift package resolve
+      - name: Run SwiftPM tests
+        run: swift test --enable-code-coverage
